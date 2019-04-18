@@ -1,52 +1,22 @@
-import React from "react";
+import React, { Component } from "react";
 import Helmet from "react-helmet";
-import { graphql } from "gatsby";
 import Layout from "../layout";
-import PostListing from "../components/PostListing/PostListing";
-import ProjectListing from "../components/ProjectListing.jsx";
 import SEO from "../components/SEO/SEO";
 import config from "../../data/SiteConfig";
+import About from "../components/About/About";
 
-class Index extends React.Component {
+class AboutPage extends Component {
   render() {
-    const postEdges = this.props.data.allMarkdownRemark.edges;
     return (
       <Layout>
-        <div className="index-container">
-          <Helmet title={config.siteTitle} />
-          <SEO />
-          <PostListing postEdges={postEdges} />
+        <div className="about-container">
+          <Helmet title={`About | ${config.siteTitle}`} />
+          <About />
         </div>
       </Layout>
     );
   }
 }
 
-export default Index;
+export default AboutPage;
 
-/* eslint no-undef: "off" */
-export const pageQuery = graphql`
-  query IndexQuery {
-    allMarkdownRemark(
-      limit: 2000
-      sort: { fields: [fields___date], order: DESC }
-    ) {
-      edges {
-        node {
-          fields {
-            slug
-            date
-          }
-          excerpt
-          timeToRead
-          frontmatter {
-            title
-            tags
-            cover
-            date
-          }
-        }
-      }
-    }
-  }
-`;
